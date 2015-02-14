@@ -5,10 +5,9 @@ output:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
 
-It is assumed that the activity data resides in location **activity/activity.csv** under the current directory.
+It is assumed that the activity data resides in location **activity/activity.csv** under the current directory. It is loaded and the missing values are filtered out.
 
 ```r
 data <- read.csv("activity/activity.csv")
@@ -21,7 +20,6 @@ str(data)
 ##  $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
-The steps variable has missing values in some rows. so we clean it.
 
 ```r
 cleanData <- data[!is.na(data$steps),]
@@ -52,7 +50,7 @@ ggplot(aggregatedData, aes(steps)) + geom_histogram(color="black")
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+![plot of chunk cleanDataNumStepsHist](figure/cleanDataNumStepsHist-1.png) 
 
 The mean and median number of daily steps are given below
 
@@ -83,7 +81,7 @@ aggregatedData <- aggregate(subData, by = list(subData$interval), FUN=mean)
 ggplot(aggregatedData, aes(interval, steps)) + geom_line(color="black")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+![plot of chunk cleanDataNumStepsIntervalPlot](figure/cleanDataNumStepsIntervalPlot-1.png) 
 
 The interval with the maximum number of steps (averaged across all days) is given below
 
@@ -147,7 +145,7 @@ ggplot(aggregatedData, aes(steps)) + geom_histogram(color="black")
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+![plot of chunk fullDataNumStepsHist](figure/fullDataNumStepsHist-1.png) 
 
 The mean and median number of daily steps are given below
 
@@ -198,4 +196,4 @@ str(aggregatedData)
 ggplot(aggregatedData, aes(interval, steps)) + geom_line(color="black") + facet_wrap(~daytype, nrow = 2)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+![plot of chunk fullDataByDayPlot](figure/fullDataByDayPlot-1.png) 
